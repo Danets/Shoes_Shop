@@ -1,7 +1,14 @@
-<nav>
-  <ul>
-    <li *ngFor="let link of links" routerLinkActive="active">
-      <a [routerLink]="[link.url]">{{link.name}}</a>
-    </li>
-  </ul>
-</nav>
+<mat-toolbar color="primary">
+  <button mat-icon-button class="example-icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>My App</span>
+  <span class="white-spacer"></span>
+  <nav>
+    <ul>
+      <li *ngFor="let link of links" routerLinkActive="active">
+        <a [routerLink]="[link.url]">{{ link.name }}</a>
+      </li>
+    </ul>
+  </nav>
+</mat-toolbar>

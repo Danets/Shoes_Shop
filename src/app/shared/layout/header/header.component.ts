@@ -8,10 +8,9 @@ import { Component } from '@angular/core';
 export class HeaderComponent {
 
   links = [
-    { url: '/', name: 'Home' },
-    { url: '/offers', name: 'Offers' },
-    { url: '/history', name: 'History' },
-    { url: '/about', name: 'About Us' },
+    // { url: '/', name: 'Home' },
+    { url: '/page', name: 'Page' },
+    { url: '/products', name: 'Products' },
   ];
 
 }
