@@ -7,6 +7,7 @@ const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'page'},
   { path: 'page', component: PageComponent },
   { path: 'products', component: ProductsComponent },
+  { path: '**', component: PageComponent }
 ];
 
 @NgModule({

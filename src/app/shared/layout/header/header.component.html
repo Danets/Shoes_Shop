@@ -1,14 +1,21 @@
-<mat-toolbar color="primary">
-  <button mat-icon-button class="example-icon">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <span>My App</span>
-  <span class="white-spacer"></span>
-  <nav>
-    <ul>
-      <li *ngFor="let link of links" routerLinkActive="active">
-        <a [routerLink]="[link.url]">{{ link.name }}</a>
-      </li>
-    </ul>
-  </nav>
-</mat-toolbar>
+<mat-sidenav-container>
+  <mat-sidenav #drawer>Start</mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button mat-icon-button class="icon" (click)="drawer.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>My App</span>
+      <span class="white-spacer"></span>
+      <nav>
+        <ul>
+          <li *ngFor="let link of links">
+            <a [routerLink]="[link.url]"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{exact:true}">{{ link.name }}</a>
+          </li>
+        </ul>
+      </nav>
+    </mat-toolbar>
+  </mat-sidenav-content>
+</mat-sidenav-container>
