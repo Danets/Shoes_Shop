@@ -9,7 +9,9 @@ ul {
       display: block;
       color: #fff;
       text-decoration: none;
-      &:focus, &:active, &.active {
+      &:focus,
+      &:active,
+      &.active {
         text-decoration: underline;
       }
     }
@@ -18,4 +20,14 @@ ul {
 
 .white-spacer {
   flex: 1 1 auto;
+}
+
+.sidenav-container {
+  height: 100vh;
+  sidenav-content {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+  }
 }

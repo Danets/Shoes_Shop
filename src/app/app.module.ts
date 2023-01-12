@@ -10,7 +10,7 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
-import { FeaturesModule } from './features/features.module';
+import { ProductsModule } from './features/products/products.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +24,7 @@ import { FeaturesModule } from './features/features.module';
     EffectsModule.forRoot([]),
     StoreRouterConnectingModule.forRoot(),
     SharedModule,
-    FeaturesModule
+    ProductsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
