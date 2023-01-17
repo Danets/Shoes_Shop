@@ -9,10 +9,40 @@ ul {
       display: block;
       color: #fff;
       text-decoration: none;
+      &:hover,
       &:focus,
       &:active,
       &.active {
-        text-decoration: underline;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.sidenav-list {
+  background: #148ed5;
+  height: inherit;
+  padding: 10px;
+  overflow: hidden !important;
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    li {
+      display: block;
+      margin-bottom: 0.5rem;
+      margin-left: 0;
+      a {
+        display: block;
+        color: #fff;
+        text-decoration: none;
+        &:hover,
+        &:focus,
+        &:active,
+        &.active {
+          color: #000;
+          font-weight: bold;
+        }
       }
     }
   }
@@ -24,10 +54,4 @@ ul {
 
 .sidenav-container {
   height: 100vh;
-  sidenav-content {
-    display: flex;
-    height: 100%;
-    align-items: center;
-    justify-content: center;
-  }
 }
