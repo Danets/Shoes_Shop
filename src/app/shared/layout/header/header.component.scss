@@ -13,7 +13,7 @@ ul {
       &:focus,
       &:active,
       &.active {
-        font-weight: bold;
+        color: #000;
       }
     }
   }
@@ -41,7 +41,6 @@ ul {
         &:active,
         &.active {
           color: #000;
-          font-weight: bold;
         }
       }
     }

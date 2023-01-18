@@ -8,6 +8,8 @@ import {MatListModule} from '@angular/material/list';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 
+import { CarouselModule } from 'ngx-owl-carousel-o';
+
 import { PageComponent } from './components/page/page.component';
 import { HeaderComponent } from './layout/header/header.component';
 
@@ -23,7 +25,8 @@ import { HeaderComponent } from './layout/header/header.component';
     MatSidenavModule,
     MatListModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    CarouselModule
   ],
   exports: [
     CommonModule,
@@ -33,7 +36,8 @@ import { HeaderComponent } from './layout/header/header.component';
     MatListModule,
     MatButtonModule,
     MatIconModule,
-    HeaderComponent
+    HeaderComponent,
+    CarouselModule
   ]
 })
 export class SharedModule { }
