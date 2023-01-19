@@ -6,6 +6,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
 import {MatButtonModule} from '@angular/material/button';
+import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
 
 import { CarouselModule } from 'ngx-owl-carousel-o';
@@ -26,6 +27,7 @@ import { HeaderComponent } from './layout/header/header.component';
     MatListModule,
     MatButtonModule,
     MatIconModule,
+    MatCardModule,
     CarouselModule
   ],
   exports: [
@@ -36,6 +38,7 @@ import { HeaderComponent } from './layout/header/header.component';
     MatListModule,
     MatButtonModule,
     MatIconModule,
+    MatCardModule,
     HeaderComponent,
     CarouselModule
   ]

@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { Observable } from 'rxjs';
+import { Product } from 'src/app/features/products/models/product';
+import { ProductService } from 'src/app/features/products/services/product.service';
 
 @Component({
   selector: 'app-page',
@@ -32,9 +35,6 @@ export class PageComponent {
     },
     nav: true
   }
-  slidesStore = [
-    {id: 1, src: 'https://images.prom.ua/3795465719_krossovki-nike-air.jpg', alt: 'nike'},
-    {id: 2, src: 'https://images.prom.ua/2756754521_w640_h640_muzhskie-vysokie-krossovki.jpg', alt: 'adidas'},
-    {id: 3, src: 'https://content.rozetka.com.ua/goods/images/big/293719923.jpg', alt: 'puma'},
-  ];
+  productsStore$: Observable<Product[]> = this.productService.getProducts();
+  constructor(private productService: ProductService) { }
 }
