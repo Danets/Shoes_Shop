@@ -19,7 +19,6 @@ export class ProductService {
   }
 
   getProduct(id: number): Product | undefined {
-    const product = this.products.find(prod => prod.id === id);
-    return product;
+    return this.products.find(prod => prod.id === id);
   }
 }
