@@ -8,11 +8,13 @@ import {MatListModule} from '@angular/material/list';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 import { CarouselModule } from 'ngx-owl-carousel-o';
 
 import { PageComponent } from './components/page/page.component';
 import { HeaderComponent } from './layout/header/header.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,17 +24,20 @@ import { HeaderComponent } from './layout/header/header.component';
   imports: [
     CommonModule,
     RouterModule,
+    ReactiveFormsModule,
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
     MatButtonModule,
     MatIconModule,
     MatCardModule,
+    MatFormFieldModule,
     CarouselModule
   ],
   exports: [
     CommonModule,
     RouterModule,
+    ReactiveFormsModule,
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
@@ -40,6 +45,7 @@ import { HeaderComponent } from './layout/header/header.component';
     MatIconModule,
     MatCardModule,
     HeaderComponent,
+    MatFormFieldModule,
     CarouselModule
   ]
 })

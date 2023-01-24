@@ -1,0 +1,75 @@
+<form class="card" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <h3 class="card-title">Log in</h3>
+  <mat-form-field appearance="outline">
+    <mat-label>Email:</mat-label>
+    <input
+      [ngClass]="{
+        invalid:
+          form.controls['email'].invalid && form.controls['email'].touched
+      }"
+      matInput
+      type="email"
+      name="email"
+      formControlName="email"
+    />
+    <mat-hint>Hint</mat-hint>
+    <span
+      class="helper-text red-text"
+      *ngIf="form.controls['email'].invalid && form.controls['email'].touched"
+    >
+      <span *ngIf="form.get('email').errors['required']">
+        Email is required
+      </span>
+      <span *ngIf="form.get('email').hasError('email')">
+        Email must have @
+      </span>
+    </span>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Password:</mat-label>
+    <input
+      matInput
+      type="password"
+      name="password"
+      formControlName="password"
+      [ngClass]="{
+        invalid:
+          form.controls['password'].invalid && form.controls['password'].touched
+      }"
+    />
+    <span
+      class="helper-text red-text"
+      *ngIf="
+        form.controls['password'].invalid && form.controls['password'].touched
+      "
+    >
+      <span *ngIf="form.get('password').hasError('required')">
+        Password is required
+      </span>
+      <span
+        *ngIf="
+          form.get('password').hasError('minlength') &&
+          form.get('password').errors['minlength']['requiredLength']
+        "
+      >
+        Password has to have minimum of
+        {{ form.get("password").errors["minlength"]["requiredLength"] }}
+        characters. Now puted
+        {{ form.get("password").errors["minlength"]["actualLength"] }}
+      </span>
+    </span>
+    <mat-hint>Hint</mat-hint>
+  </mat-form-field>
+  <button
+    mat-raised-button
+    color="primary"
+    type="submit"
+    [disabled]="form.invalid"
+    [ngClass]="{
+      disabled: form.invalid
+    }"
+  >
+    Sign in
+  </button>
+</form>

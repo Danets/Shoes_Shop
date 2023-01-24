@@ -11,6 +11,7 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { ProductsModule } from './features/products/products.module';
+import { AuthModule } from './features/auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ProductsModule } from './features/products/products.module';
     EffectsModule.forRoot([]),
     StoreRouterConnectingModule.forRoot(),
     SharedModule,
-    ProductsModule
+    ProductsModule,
+    AuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]
