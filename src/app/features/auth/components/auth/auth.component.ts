@@ -1,41 +1,45 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component } from '@angular/core';
+import { UntypedFormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Observable, combineLatest } from 'rxjs';
+import { AccountAction, LoginUser, RegisterUser } from '../../models/auth';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
-  styleUrls: ['./auth.component.scss']
+  styleUrls: ['./auth.component.scss'],
 })
-export class AuthComponent implements OnInit, OnDestroy {
-  form!: FormGroup;
+export class AuthComponent {
+  form$: Observable<UntypedFormGroup> = this.authService.form$;
+
+  accountAction$: Observable<AccountAction> = this.authService.accountAction$;
+
+  accountAccess$: Observable<{
+    form: UntypedFormGroup;
+    accountAction: AccountAction;
+  }> = combineLatest(
+    [this.authService.form$, this.authService.accountAction$],
+    (accountAccessForm, accountAction) => {
+      return {
+        form: accountAccessForm,
+        accountAction: accountAction,
+      };
+    }
+  );
 
   constructor(
     private authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute
   ) {}
 
-  ngOnInit(): void {
-    this.initForm();
+  toggleRegisterUser() {
+    this.authService.toggleUserIsRegistering()
   }
 
-  ngOnDestroy(): void {
-  }
-
-  initForm(): void {
-    this.form = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [
-        Validators.required,
-        Validators.minLength(6),
-      ]),
-    });
-  }
-
-  onSubmit() {
-    console.log('Form value: ', this.form.value)
-    this.form.reset();
+  onSubmit(form: any) {
+    this.authService.login(form.value)
+    console.log('Form value: ', form.value);
+    this.router.navigate(['/page']);
   }
 }

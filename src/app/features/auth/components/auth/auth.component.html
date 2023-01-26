@@ -1,75 +1,80 @@
-<form class="card" [formGroup]="form" (ngSubmit)="onSubmit()">
-  <h3 class="card-title">Log in</h3>
-  <mat-form-field appearance="outline">
-    <mat-label>Email:</mat-label>
-    <input
-      [ngClass]="{
-        invalid:
-          form.controls['email'].invalid && form.controls['email'].touched
-      }"
-      matInput
-      type="email"
-      name="email"
-      formControlName="email"
-    />
-    <mat-hint>Hint</mat-hint>
-    <span
-      class="helper-text red-text"
-      *ngIf="form.controls['email'].invalid && form.controls['email'].touched"
-    >
-      <span *ngIf="form.get('email').errors['required']">
-        Email is required
-      </span>
-      <span *ngIf="form.get('email').hasError('email')">
-        Email must have @
-      </span>
-    </span>
-  </mat-form-field>
+<div class="container">
+  <ng-container *ngIf="accountAccess$ | async as accountAccess">
+    <div *ngIf="accountAccess.form as form">
+      <form class="form" [formGroup]="form">
+        <h3 class="card-title">{{ accountAccess.accountAction.title }}</h3>
+        <mat-form-field appearance="outline">
+          <mat-label>Username</mat-label>
+          <input matInput type="text" formControlName="username" />
+        </mat-form-field>
+        <mat-form-field
+          *ngIf="accountAccess.form.contains('email')"
+          appearance="outline"
+        >
+          <mat-label>Email:</mat-label>
+          <input matInput type="email" name="email" formControlName="email" />
+          <div
+            class="error-text red-text"
+            *ngIf="
+              form.controls['email'].invalid && form.controls['email'].touched
+            "
+          >
+            <span *ngIf="form.get('email').hasError('email')">
+              Email must have @ !
+            </span>
+          </div>
+        </mat-form-field>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Password:</mat-label>
-    <input
-      matInput
-      type="password"
-      name="password"
-      formControlName="password"
-      [ngClass]="{
-        invalid:
-          form.controls['password'].invalid && form.controls['password'].touched
-      }"
-    />
-    <span
-      class="helper-text red-text"
-      *ngIf="
-        form.controls['password'].invalid && form.controls['password'].touched
-      "
-    >
-      <span *ngIf="form.get('password').hasError('required')">
-        Password is required
-      </span>
-      <span
-        *ngIf="
-          form.get('password').hasError('minlength') &&
-          form.get('password').errors['minlength']['requiredLength']
-        "
-      >
-        Password has to have minimum of
-        {{ form.get("password").errors["minlength"]["requiredLength"] }}
-        characters. Now puted
-        {{ form.get("password").errors["minlength"]["actualLength"] }}
-      </span>
-    </span>
-    <mat-hint>Hint</mat-hint>
-  </mat-form-field>
-  <button
-    mat-raised-button
-    color="primary"
-    type="submit"
-    [disabled]="form.invalid"
-    [ngClass]="{
-      disabled: form.invalid
-    }"
-  >
-    Sign in
-  </button>
-</form>
+        <mat-form-field appearance="outline">
+          <mat-label>Password:</mat-label>
+          <input
+            matInput
+            type="password"
+            name="password"
+            formControlName="password"
+          />
+          <div
+            class="error-text red-text"
+            *ngIf="
+              form.controls['password'].invalid &&
+              form.controls['password'].touched
+            "
+          >
+            <span
+              *ngIf="
+                form.get('password').hasError('minlength') &&
+                form.get('password').errors['minlength']['requiredLength']
+              "
+            >
+              Password has to have minimum of
+              {{ form.get("password").errors["minlength"]["requiredLength"] }}
+              characters. Now puted
+              {{ form.get("password").errors["minlength"]["actualLength"] }}
+            </span>
+          </div>
+        </mat-form-field>
+        <div>
+          {{ accountAccess.accountAction.linkLabel }}
+          <button
+            mat-raised-button
+            type="button"
+            color="primary"
+            class="form_switcher"
+            (click)="toggleRegisterUser()"
+          >
+            {{ accountAccess.accountAction.linkText }}
+          </button>
+        </div>
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="form.invalid"
+          (click)="onSubmit(form)"
+        >
+          {{ accountAccess.accountAction.title }}
+        </button>
+      </form>
+    </div>
+  </ng-container>
+</div>
