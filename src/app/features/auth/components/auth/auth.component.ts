@@ -29,7 +29,7 @@ export class AuthComponent {
   );
 
   constructor(
-    private authService: AuthService,
+    public authService: AuthService,
     private router: Router,
   ) {}
 
@@ -38,7 +38,11 @@ export class AuthComponent {
   }
 
   onSubmit(form: any) {
-    this.authService.login(form.value)
+    const user = {
+      ...form.value,
+      returnSecureToken: true
+    }
+    this.authService.login(user).subscribe();
     console.log('Form value: ', form.value);
     this.router.navigate(['/page']);
   }

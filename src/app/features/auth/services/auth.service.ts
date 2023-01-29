@@ -10,8 +10,8 @@ import {
   Subject,
   of,
 } from 'rxjs';
-import { catchError, filter, map, switchMap } from 'rxjs/operators';
-import { AccountAction, LoginUser, RegisterUser } from '../models/auth';
+import { catchError, filter, map, switchMap, tap } from 'rxjs/operators';
+import { AccountAction, LoginUser, RegisterUser, API_KEY, AuthResponse } from '../models/auth';
 
 @Injectable()
 export class AuthService {
@@ -22,6 +22,8 @@ export class AuthService {
 
   private accountAccessFormSubmitted: Subject<RegisterUser | LoginUser> = new Subject();
   accountAccessFormSubmitted$: Observable<RegisterUser | LoginUser> = this.accountAccessFormSubmitted.asObservable();
+
+  constructor(private http: HttpClient) {}
 
   registerUser$ = combineLatest([
     this.userIsRegistering$,
@@ -46,7 +48,7 @@ export class AuthService {
   form$: Observable<FormGroup> = this.userIsRegistering$.pipe(
     map((userIsRegistering) => {
       this.form = new FormGroup({
-        username: new FormControl('', Validators.required),
+        email: new FormControl('', Validators.email),
         password: new FormControl('', [
           Validators.required,
           Validators.minLength(6),
@@ -54,8 +56,8 @@ export class AuthService {
       });
       if (userIsRegistering) {
         this.form.addControl(
-          'email',
-          new FormControl('', [Validators.required, Validators.email])
+          'username',
+          new FormControl('', [Validators.required])
         );
       }
       return this.form;
@@ -78,11 +80,39 @@ export class AuthService {
     this.userIsRegistering.next(!this.userIsRegistering.getValue());
   }
 
-  login(
-    loginUser: LoginUser | RegisterUser
-  ): Observable<LoginUser | RegisterUser> {
-    return of(loginUser);
+  get token(): string | null {
+    const expiresDate = localStorage.getItem('expiresDate')
+    if (new Date() > new Date(expiresDate as string)) {
+      this.logout()
+      return null
+    } else {
+      return localStorage.getItem('idToken')
+    }
   }
 
-  constructor(private http: HttpClient) {}
+  private setToken(response: AuthResponse | null) {
+    if (response) {
+      localStorage.setItem('idToken', response.idToken);
+      const expiresIn = new Date(new Date().getTime() + +response.expiresIn * 1000)
+      localStorage.setItem('expiresDate', expiresIn.toString())
+    } else {
+      localStorage.clear()
+    }
+  } 
+
+  isAuthenticated(): boolean {
+   return !!this.token;
+  } 
+
+  login(
+    loginUser: LoginUser | RegisterUser
+  ): Observable<any> {
+    return this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`, loginUser)
+    .pipe(tap(res => this.setToken(res as AuthResponse)))
+  }
+
+  logout() {
+    this.setToken(null)
+  }
+
 }

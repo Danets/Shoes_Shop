@@ -3,12 +3,14 @@
     <div *ngIf="accountAccess.form as form">
       <form class="form" [formGroup]="form">
         <h3 class="card-title">{{ accountAccess.accountAction.title }}</h3>
-        <mat-form-field appearance="outline">
+        <mat-form-field
+         appearance="outline"
+        *ngIf="accountAccess.form.contains('username')"
+        >
           <mat-label>Username</mat-label>
           <input matInput type="text" formControlName="username" />
         </mat-form-field>
         <mat-form-field
-          *ngIf="accountAccess.form.contains('email')"
           appearance="outline"
         >
           <mat-label>Email:</mat-label>
