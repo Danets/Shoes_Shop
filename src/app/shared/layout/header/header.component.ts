@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/features/auth/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -6,11 +8,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
+  constructor(
+    public authService: AuthService,
+    private router: Router
+  ) {}
 
-  links = [
-    { url: '/page', name: 'Page' },
-    { url: '/products', name: 'Products' },
-    { url: '/auth', name: 'Login' },
-  ];
+  onLogout(event: Event) {
+    event.preventDefault();
+    this.authService.logout();
+    this.router.navigateByUrl('/auth');
+  }
 
 }

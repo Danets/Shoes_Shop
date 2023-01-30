@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import {
@@ -16,6 +16,10 @@ import { AccountAction, LoginUser, RegisterUser, API_KEY, AuthResponse } from '.
 @Injectable()
 export class AuthService {
   form!: FormGroup;
+  errorMessage: string = '';
+
+  private errorSubject: Subject<string> = new Subject();
+  errorSubject$: Observable<string> = this.errorSubject.asObservable();
 
   private userIsRegistering: BehaviorSubject<any> = new BehaviorSubject(false);
   userIsRegistering$: Observable<boolean> = this.userIsRegistering.asObservable();
@@ -48,7 +52,7 @@ export class AuthService {
   form$: Observable<FormGroup> = this.userIsRegistering$.pipe(
     map((userIsRegistering) => {
       this.form = new FormGroup({
-        email: new FormControl('', Validators.email),
+        email: new FormControl('', [Validators.required, Validators.email]),
         password: new FormControl('', [
           Validators.required,
           Validators.minLength(6),
@@ -81,22 +85,22 @@ export class AuthService {
   }
 
   get token(): string | null {
-    const expiresDate = localStorage.getItem('expiresDate')
+    const expiresDate = localStorage.getItem('expiresDate');
     if (new Date() > new Date(expiresDate as string)) {
-      this.logout()
-      return null
+      this.logout();
+      return null;
     } else {
-      return localStorage.getItem('idToken')
+      return localStorage.getItem('idToken');
     }
   }
 
   private setToken(response: AuthResponse | null) {
     if (response) {
       localStorage.setItem('idToken', response.idToken);
-      const expiresIn = new Date(new Date().getTime() + +response.expiresIn * 1000)
-      localStorage.setItem('expiresDate', expiresIn.toString())
+      const expiresIn = new Date(new Date().getTime() + +response.expiresIn * 1000);
+      localStorage.setItem('expiresDate', expiresIn.toString());
     } else {
-      localStorage.clear()
+      localStorage.clear();
     }
   } 
 
@@ -108,11 +112,19 @@ export class AuthService {
     loginUser: LoginUser | RegisterUser
   ): Observable<any> {
     return this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`, loginUser)
-    .pipe(tap(res => this.setToken(res as AuthResponse)))
+    .pipe(tap(res => this.setToken(res as AuthResponse)),
+    catchError((error) => this.handleError(error))
+    )
   }
 
-  logout() {
-    this.setToken(null)
+  logout(): void {
+    this.setToken(null);
+  }
+
+  private handleError(error: HttpErrorResponse): Observable<HttpErrorResponse> {
+    this.errorMessage = error.error.error.message;
+    this.errorSubject.next(this.errorMessage);
+    return throwError(error);
   }
 
 }

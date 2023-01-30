@@ -2,15 +2,24 @@
   <mat-sidenav class="sidenav" #drawer>
     <nav class="sidenav-list">
       <ul>
-          <li *ngFor="let link of links">
-            <a
-              [routerLink]="[link.url]"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-              >{{ link.name }}</a
-            >
-          </li>
-        </ul>
+        <li>
+          <a
+            routerLink="/home"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Home</a
+          >
+        </li>
+        <li>
+          <a routerLink="/products" routerLinkActive="active">Products</a>
+        </li>
+        <li *ngIf="!this.authService.isAuthenticated()">
+          <a routerLink="/auth" routerLinkActive="active">Login</a>
+        </li>
+        <li *ngIf="this.authService.isAuthenticated()">
+          <a href="#" (click)="onLogout($event)">Logout</a>
+        </li>
+      </ul>
     </nav>
   </mat-sidenav>
   <mat-sidenav-content class="sidenav-content">
@@ -22,13 +31,22 @@
       <span class="white-spacer"></span>
       <nav>
         <ul>
-          <li *ngFor="let link of links">
+          <li>
             <a
-              [routerLink]="[link.url]"
+              routerLink="/home"
               routerLinkActive="active"
               [routerLinkActiveOptions]="{ exact: true }"
-              >{{ link.name }}</a
+              >Home</a
             >
+          </li>
+          <li>
+            <a routerLink="/products" routerLinkActive="active">Products</a>
+          </li>
+          <li *ngIf="!this.authService.isAuthenticated()">
+            <a routerLink="/auth" routerLinkActive="active">Login</a>
+          </li>
+          <li *ngIf="this.authService.isAuthenticated()">
+            <a href="#" (click)="onLogout($event)">Logout</a>
           </li>
         </ul>
       </nav>

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable, combineLatest } from 'rxjs';
+import { Observable, combineLatest, tap } from 'rxjs';
 import { AccountAction, LoginUser, RegisterUser } from '../../models/auth';
 import { AuthService } from '../../services/auth.service';
 
@@ -34,7 +34,7 @@ export class AuthComponent {
   ) {}
 
   toggleRegisterUser() {
-    this.authService.toggleUserIsRegistering()
+    this.authService.toggleUserIsRegistering();
   }
 
   onSubmit(form: any) {
@@ -42,8 +42,9 @@ export class AuthComponent {
       ...form.value,
       returnSecureToken: true
     }
-    this.authService.login(user).subscribe();
-    console.log('Form value: ', form.value);
-    this.router.navigate(['/page']);
+    this.authService.login(user).subscribe(() => {
+      this.router.navigate(['/page']);
+    });
   }
+
 }

@@ -1,4 +1,7 @@
 <div class="container">
+    <div *ngIf="(authService.errorSubject$ | async) as error">
+        <h2 class="error-text">{{error}}</h2>
+    </div>
   <ng-container *ngIf="accountAccess$ | async as accountAccess">
     <div *ngIf="accountAccess.form as form">
       <form class="form" [formGroup]="form">
