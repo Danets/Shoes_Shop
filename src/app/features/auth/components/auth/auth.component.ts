@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable, combineLatest, tap } from 'rxjs';
+import { Observable, combineLatest, tap, Subject, takeUntil } from 'rxjs';
 import { AccountAction, LoginUser, RegisterUser } from '../../models/auth';
 import { AuthService } from '../../services/auth.service';
 
@@ -10,10 +10,11 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss'],
 })
-export class AuthComponent {
+export class AuthComponent implements OnDestroy {
   form$: Observable<UntypedFormGroup> = this.authService.form$;
 
   accountAction$: Observable<AccountAction> = this.authService.accountAction$;
+  notifier = new Subject<boolean>();
 
   accountAccess$: Observable<{
     form: UntypedFormGroup;
@@ -42,9 +43,15 @@ export class AuthComponent {
       ...form.value,
       returnSecureToken: true
     }
-    this.authService.login(user).subscribe(() => {
+    this.authService.login(user)
+    .pipe(takeUntil(this.notifier))
+    .subscribe(() => {
       this.router.navigate(['/page']);
     });
   }
 
+  ngOnDestroy(): void {
+    this.notifier.next(true);
+    this.notifier.complete();
+  }
 }
