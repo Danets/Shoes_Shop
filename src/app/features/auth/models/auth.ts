@@ -20,5 +20,3 @@ export interface AccountAction {
   linkLabel: string;
   linkText: string;
 }
-
-export const API_KEY = "AIzaSyCnjuoJfk8KklwomY9X5jLcyD4vAitV_Hs";

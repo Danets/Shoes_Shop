@@ -11,7 +11,8 @@ import {
   of,
 } from 'rxjs';
 import { catchError, filter, map, switchMap, tap } from 'rxjs/operators';
-import { AccountAction, LoginUser, RegisterUser, API_KEY, AuthResponse } from '../models/auth';
+import { AccountAction, LoginUser, RegisterUser, AuthResponse } from '../models/auth';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable()
 export class AuthService {
@@ -111,8 +112,9 @@ export class AuthService {
   login(
     loginUser: LoginUser | RegisterUser
   ): Observable<any> {
-    return this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`, loginUser)
-    .pipe(tap(res => this.setToken(res as AuthResponse)),
+    return this.http
+    .post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.apikey}`, loginUser)
+    .pipe(tap(this.setToken),
     catchError((error) => this.handleError(error))
     )
   }
@@ -124,7 +126,7 @@ export class AuthService {
   private handleError(error: HttpErrorResponse): Observable<HttpErrorResponse> {
     this.errorMessage = error.error.error.message;
     this.errorSubject.next(this.errorMessage);
-    return throwError(error);
+    return throwError(() => error);
   }
 
 }

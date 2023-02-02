@@ -14,6 +14,7 @@ export class AuthComponent implements OnDestroy {
   form$: Observable<UntypedFormGroup> = this.authService.form$;
 
   accountAction$: Observable<AccountAction> = this.authService.accountAction$;
+  
   notifier = new Subject<boolean>();
 
   accountAccess$: Observable<{
