@@ -18,11 +18,12 @@ export class ProductComponent implements OnInit {
 
  ngOnInit() {
    this.route.params
-   .subscribe(params => this.product = this.productService.getProduct(+params['productId']))
+   .pipe(switchMap( params => this.productService.getProduct(+params['productId'])))
+   .subscribe(product => this.product = product)
  }
 
  onGetBack() {
-  this.router.navigateByUrl('page');
+  this.router.navigateByUrl('home');
  }
 
 }

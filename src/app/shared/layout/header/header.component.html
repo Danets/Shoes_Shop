@@ -11,7 +11,7 @@
           >
         </li>
         <li>
-          <a routerLink="/products" routerLinkActive="active">Products</a>
+          <a routerLink="/categories" routerLinkActive="active">Categories</a>
         </li>
         <li *ngIf="!this.authService.isAuthenticated()">
           <a
@@ -42,7 +42,7 @@
             >
           </li>
           <li>
-            <a routerLink="/products" routerLinkActive="active">Products</a>
+            <a routerLink="/categories" routerLinkActive="active">Categories</a>
           </li>
           <li *ngIf="!this.authService.isAuthenticated()">
             <a routerLink="/auth" routerLinkActive="active">Login</a>

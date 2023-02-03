@@ -14,7 +14,7 @@ export class AuthComponent implements OnDestroy {
   form$: Observable<UntypedFormGroup> = this.authService.form$;
 
   accountAction$: Observable<AccountAction> = this.authService.accountAction$;
-  
+
   notifier = new Subject<boolean>();
 
   accountAccess$: Observable<{
@@ -47,7 +47,7 @@ export class AuthComponent implements OnDestroy {
     this.authService.login(user)
     .pipe(takeUntil(this.notifier))
     .subscribe(() => {
-      this.router.navigate(['/page']);
+      this.router.navigate(['/home']);
     });
   }
 

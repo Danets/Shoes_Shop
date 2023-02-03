@@ -7,7 +7,7 @@
             <mat-card-title>{{ slide.title }}</mat-card-title>
           </mat-card-header>
           <a [routerLink]="['/products', slide.id]">
-            <img [src]="slide.src" [alt]="slide.alt" [title]="slide.alt" />
+            <img [src]="slide.src" [alt]="slide.title" [title]="slide.title" />
           </a>
           <mat-card-content>
             <p>
