@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { Product } from '../models/product';
 
@@ -13,6 +13,7 @@ export class ProductService {
     {id: 2,title: 'adidas', dsc: 'breeds of dog from Japan. A small, agile dog that copes very well with mountainous', src: 'https://images.prom.ua/2756754521_w640_h640_muzhskie-vysokie-krossovki.jpg'},
     {id: 3,title: 'puma', dsc: 'the Shiba Inu was originally bred for hunting.', src: 'https://content.rozetka.com.ua/goods/images/big/293719923.jpg'},
   ];
+  productCreated$ = new Subject();
 
   constructor(private http: HttpClient) { }
 
@@ -27,7 +28,9 @@ export class ProductService {
   }
 
   createProduct(product: Product): Observable<Product> {
+    this.productCreated$.next(product);
     return this.http.post<Product>(`${environment.urlFB}/products.json`, product);
+    
   }
 
   updateProduct(product: Product): Observable<Product> {

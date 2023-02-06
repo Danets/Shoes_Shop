@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { map, Observable } from 'rxjs';
+import { Product } from '../../models/product';
 
 @Component({
   selector: 'app-product-list',
@@ -6,5 +8,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./product-list.component.scss']
 })
 export class ProductListComponent {
+  displayedColumns: string[] = ['id', 'title', 'src', 'date'];
+  @Input() products$: Observable<Product[]>;
 
 }

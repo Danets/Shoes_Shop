@@ -12,6 +12,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
+import {MatTableModule} from '@angular/material/table';
 
 import { CarouselModule } from 'ngx-owl-carousel-o';
 
@@ -36,6 +37,7 @@ import { HeaderComponent } from './layout/header/header.component';
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
+    MatTableModule,
     CarouselModule
   ],
   exports: [
@@ -52,6 +54,7 @@ import { HeaderComponent } from './layout/header/header.component';
     HeaderComponent,
     MatFormFieldModule,
     MatInputModule,
+    MatTableModule,
     CarouselModule
   ]
 })

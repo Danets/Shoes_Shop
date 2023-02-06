@@ -10,7 +10,6 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
-import { ProductsModule } from './features/products/products.module';
 import { AuthModule } from './features/auth/auth.module';
 
 @NgModule({
@@ -25,7 +24,6 @@ import { AuthModule } from './features/auth/auth.module';
     EffectsModule.forRoot([]),
     StoreRouterConnectingModule.forRoot(),
     SharedModule,
-    ProductsModule,
     AuthModule
   ],
   providers: [],
