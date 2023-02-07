@@ -37,6 +37,7 @@
             type="password"
             name="password"
             formControlName="password"
+            #pass
           />
           <div
             class="error-text red-text"
@@ -58,6 +59,7 @@
             </span>
           </div>
         </mat-form-field>
+        <span (click)="openPass(pass)">Open password</span>
         <div>
           {{ accountAccess.accountAction.linkLabel }}
           <button

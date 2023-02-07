@@ -13,6 +13,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatTableModule} from '@angular/material/table';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 import { CarouselModule } from 'ngx-owl-carousel-o';
 
@@ -38,6 +39,7 @@ import { HeaderComponent } from './layout/header/header.component';
     MatFormFieldModule,
     MatInputModule,
     MatTableModule,
+    MatCheckboxModule,
     CarouselModule
   ],
   exports: [
@@ -55,6 +57,7 @@ import { HeaderComponent } from './layout/header/header.component';
     MatFormFieldModule,
     MatInputModule,
     MatTableModule,
+    MatCheckboxModule,
     CarouselModule
   ]
 })

@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, ElementRef, OnDestroy, Renderer2 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, combineLatest, tap, Subject, takeUntil } from 'rxjs';
@@ -15,7 +15,7 @@ export class AuthComponent implements OnDestroy {
 
   accountAction$: Observable<AccountAction> = this.authService.accountAction$;
 
-  notifier = new Subject<boolean>();
+  notifier = new Subject<void>();
 
   accountAccess$: Observable<{
     form: UntypedFormGroup;
@@ -33,6 +33,7 @@ export class AuthComponent implements OnDestroy {
   constructor(
     public authService: AuthService,
     private router: Router,
+    private render: Renderer2
   ) {}
 
   toggleRegisterUser() {
@@ -51,8 +52,12 @@ export class AuthComponent implements OnDestroy {
     });
   }
 
+  openPass(input: any) {
+    input.type = input.type === 'password' ? 'text' : 'password';
+  }
+
   ngOnDestroy(): void {
-    this.notifier.next(true);
+    this.notifier.next();
     this.notifier.complete();
   }
 }

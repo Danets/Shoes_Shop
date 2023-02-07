@@ -35,6 +35,6 @@ export class PageComponent {
     },
     nav: true
   }
-  productsStore$: Observable<Product[]> = this.productService.getProducts();
+  productsStore$: Observable<Product[]> = this.productService.getSlides();
   constructor(private productService: ProductService) { }
 }
