@@ -110,10 +110,20 @@ export class AuthService {
   } 
 
   login(
-    loginUser: LoginUser | RegisterUser
+    loginUser: LoginUser
   ): Observable<any> {
     return this.http
     .post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.apikey}`, loginUser)
+    .pipe(tap(this.setToken),
+    catchError((error) => this.handleError(error))
+    )
+  }
+
+  register(
+    registerUser: RegisterUser
+  ): Observable<any> {
+    return this.http
+    .post(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.apikey}`, registerUser)
     .pipe(tap(this.setToken),
     catchError((error) => this.handleError(error))
     )

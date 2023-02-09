@@ -43,13 +43,24 @@ export class AuthComponent implements OnDestroy {
   onSubmit(form: any) {
     const user = {
       ...form.value,
-      returnSecureToken: true
+      returnSecureToken: true,
+    };
+    if ('username' in user) {
+      delete user.username;
+      this.authService
+        .register(user)
+        .pipe(takeUntil(this.notifier))
+        .subscribe(() => {
+          this.router.navigate(['/home']);
+        });
+    } else {
+      this.authService
+        .login(user)
+        .pipe(takeUntil(this.notifier))
+        .subscribe(() => {
+          this.router.navigate(['/home']);
+        });
     }
-    this.authService.login(user)
-    .pipe(takeUntil(this.notifier))
-    .subscribe(() => {
-      this.router.navigate(['/home']);
-    });
   }
 
   openPass(input: any) {
