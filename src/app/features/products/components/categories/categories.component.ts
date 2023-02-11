@@ -34,12 +34,7 @@ ngOnInit(): void {
   }
 
   getProducts(): void {
-    this.products$ = this.productService.getProducts().pipe(map(res => {
-      return Object.keys(res).map(key => ({
-        ...res[key],
-        id: key
-      }));
-    }));
+    this.products$ = this.productService.getProducts();
   }
 
 }

@@ -14,6 +14,11 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatTableModule} from '@angular/material/table';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
+import {
+  MatProgressSpinnerModule,
+} from '@angular/material/progress-spinner';
 
 import { CarouselModule } from 'ngx-owl-carousel-o';
 
@@ -40,6 +45,9 @@ import { HeaderComponent } from './layout/header/header.component';
     MatInputModule,
     MatTableModule,
     MatCheckboxModule,
+    MatProgressSpinnerModule,
+    MatPaginatorModule,
+    MatSortModule,
     CarouselModule
   ],
   exports: [
@@ -58,6 +66,9 @@ import { HeaderComponent } from './layout/header/header.component';
     MatInputModule,
     MatTableModule,
     MatCheckboxModule,
+    MatProgressSpinnerModule,
+    MatPaginatorModule,
+    MatSortModule,
     CarouselModule
   ]
 })
