@@ -17,9 +17,9 @@ export class ProductComponent implements OnInit {
    private route: ActivatedRoute, private router: Router) {}
 
  ngOnInit() {
-   this.route.params
-   .pipe(switchMap( params => this.productService.getProduct(+params['productId'])))
-   .subscribe(product => this.product = product)
+  //  this.route.params
+  //  .pipe(switchMap( params => this.productService.getProduct(params['productId'])))
+  //  .subscribe(product => this.product = product)
  }
 
  onGetBack() {

@@ -16,6 +16,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
+import {MatDialogModule} from '@angular/material/dialog';
 import {
   MatProgressSpinnerModule,
 } from '@angular/material/progress-spinner';
@@ -48,6 +49,7 @@ import { HeaderComponent } from './layout/header/header.component';
     MatProgressSpinnerModule,
     MatPaginatorModule,
     MatSortModule,
+    MatDialogModule,
     CarouselModule
   ],
   exports: [
@@ -69,6 +71,7 @@ import { HeaderComponent } from './layout/header/header.component';
     MatProgressSpinnerModule,
     MatPaginatorModule,
     MatSortModule,
+    MatDialogModule,
     CarouselModule
   ]
 })

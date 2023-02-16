@@ -4,6 +4,17 @@ import { delay, map, Observable, of, shareReplay, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { Product } from '../models/product';
 
+import {
+  CollectionReference,
+  DocumentData,
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  updateDoc,
+} from '@firebase/firestore';
+import { Firestore, collectionData, docData } from '@angular/fire/firestore';
+
 @Injectable({
   providedIn: 'any',
 })
@@ -30,7 +41,14 @@ export class ProductService {
   ];
   productCreated$ = new Subject();
 
-  constructor(private http: HttpClient) {}
+  private productCollection: CollectionReference<DocumentData>;
+
+  constructor(
+    private readonly http: HttpClient,
+    private readonly firestore: Firestore
+  ) {
+    this.productCollection = collection(firestore, 'products');
+  }
 
   getSlides(): Observable<Product[]> {
     return of(this.slides);
@@ -41,14 +59,10 @@ export class ProductService {
   }
 
   getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(`${environment.urlFB}/products.json`).pipe(
-      map((res) =>
-        Object.keys(res).map((key) => ({
-          ...res[key],
-          id: key,
-        }))
-      )
-    );
+    return collectionData(this.productCollection, {
+      idField: 'id',
+    }) as Observable<Product[]>;
+    // return collectionData(this.productCollection) as Observable<Product[]>;
   }
 
   findProducts(
@@ -56,8 +70,8 @@ export class ProductService {
     sortDirection: string,
     pageIndex: number,
     pageSize: number
-  ): Observable<Product[]> {
-    //     let params = new HttpParams();
+  ) {
+    // let params = new HttpParams();
     // params = params.append('startAt',`${filter}`);
     // params = params.append('orderBy',`${sortDirection}`);
     // params = params.append('pageIndex',pageIndex.toString());
@@ -85,28 +99,34 @@ export class ProductService {
       );
   }
 
-  getProduct(id: number): Observable<Product> {
-    return this.http.get<Product>(`${environment.urlFB}/${id}/products.json`);
+  getProduct(id: string) {
+    // return this.http.get<Product>(`${environment.urlFB}/${id}/products.json`);
+    const productDocumentReference = doc(this.firestore, `products/${id}`);
+    return docData(productDocumentReference, { idField: 'id' });
   }
 
-  createProduct(product: Product): Observable<Product> {
-    this.productCreated$.next(product);
-    return this.http.post<Product>(
-      `${environment.urlFB}/products.json`,
-      product
-    );
+  createProduct(product: Product) {
+    // this.productCreated$.next(product);
+    // return this.http.post<Product>(
+    //   `${environment.urlFB}/products.json`,
+    //   product
+    // );
+    return addDoc(this.productCollection, product);
   }
 
-  updateProduct(product: Product): Observable<Product> {
-    return this.http.patch<Product>(
-      `${environment.urlFB}/products.json`,
-      product
+  updateProduct(product: Product) {
+    const productDocumentReference = doc(
+      this.firestore,
+      `products/${product.id}`
     );
+    return updateDoc(productDocumentReference, { ...product });
   }
 
-  removeProduct(product: Product): Observable<Product> {
-    return this.http.delete<Product>(
-      `${environment.urlFB}/${product.id}/products.json`
+  removeProduct(product: Product) {
+    const productDocumentReference = doc(
+      this.firestore,
+      `products/${product.id}`
     );
+    return deleteDoc(productDocumentReference);
   }
 }

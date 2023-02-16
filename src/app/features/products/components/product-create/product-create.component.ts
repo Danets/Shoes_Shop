@@ -1,34 +1,35 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subject, take } from 'rxjs';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Product } from '../../models/product';
-import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'app-product-create',
   templateUrl: './product-create.component.html',
-  styleUrls: ['./product-create.component.scss']
+  styleUrls: ['./product-create.component.scss'],
 })
 export class ProductCreateComponent {
   formProduct: FormGroup;
-  @Output() productCreated = new EventEmitter<Product>();
-  @Output() canceled = new EventEmitter<void>();
 
-  constructor(private formBuilder: FormBuilder) {
-    this.formProduct = formBuilder.group({   
-      "title": ["", [Validators.required]],
-      "src": ["", Validators.required],
-      "dsc": ["", Validators.required],
-      "date": [new Date()]
-  });
+  constructor(
+    private readonly formBuilder: FormBuilder,
+    public readonly dialogRef: MatDialogRef<ProductCreateComponent>,
+    @Inject(MAT_DIALOG_DATA) public readonly product: Product
+  ) {
+    this.formProduct = formBuilder.group({
+      title: [product ? product.title : null, [Validators.required]],
+      src: [product ? product.src : null, Validators.required],
+      dsc: [product ? product.dsc : null, Validators.required],
+      date: [new Date()],
+    });
   }
 
-  onCreate(formProduct) {
-    this.productCreated.emit(formProduct.value);
-    this.formProduct.reset();
+  onCreate() {
+    this.dialogRef.close({ ...this.product, ...this.formProduct.value });
   }
 
   onCancel() {
-    this.canceled.emit();
+    this.formProduct.reset();
+    this.dialogRef.close();
   }
 }

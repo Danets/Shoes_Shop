@@ -5,16 +5,14 @@
     color="primary"
     type="button"
     class="btn-create"
-    (click)="isCreating = !isCreating"
+    (click)="onCreateProduct()"
   >
     Create Product
   </button>
 
-  <app-product-create
-    *ngIf="isCreating"
-    (productCreated)="onCreateProduct($event)"
-    (canceled)="onCancelProduct()"
-  ></app-product-create>
-
-  <app-product-list></app-product-list>
+  <app-product-list
+    [products]="products"
+    (productRemoved)="onRemove($event)"
+    (productUpdated)="onUpdate($event)"
+  ></app-product-list>
 </div>

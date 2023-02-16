@@ -12,12 +12,20 @@ import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { AuthModule } from './features/auth/auth.module';
 
+// import { AngularFireModule } from '@angular/fire/compat';
+import { environment } from '../environments/environment.development';
+
+import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
     BrowserModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideFirestore(() => getFirestore()),
     AppRoutingModule,
     BrowserAnimationsModule,
     StoreModule.forRoot({}, {}),
