@@ -75,14 +75,8 @@ export class CategoriesComponent implements OnInit, OnDestroy {
       .subscribe();
   }
 
-  onCancelProduct() {
-    this.isCreating = false;
-  }
-
   onRemove(product: Product) {
-    console.log('In Category', product);
     this.productService.removeProduct(product).then((res) => {
-      console.log('Removed', res);
       this.getProducts();
     });
   }

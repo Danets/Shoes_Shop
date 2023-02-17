@@ -1,21 +1,19 @@
 <div class="container">
-    <div *ngIf="(authService.errorSubject$ | async) as error">
-        <h2 class="error-text">{{error}}</h2>
-    </div>
+  <div *ngIf="authService.errorSubject$ | async as error">
+    <h2 class="error-text">{{ error }}</h2>
+  </div>
   <ng-container *ngIf="accountAccess$ | async as accountAccess">
     <div *ngIf="accountAccess.form as form">
       <form class="form" [formGroup]="form">
         <h3 class="card-title">{{ accountAccess.accountAction.title }}</h3>
         <mat-form-field
-         appearance="outline"
-        *ngIf="accountAccess.form.contains('username')"
+          appearance="outline"
+          *ngIf="accountAccess.form.contains('username')"
         >
           <mat-label>Username</mat-label>
           <input matInput type="text" formControlName="username" />
         </mat-form-field>
-        <mat-form-field
-          appearance="outline"
-        >
+        <mat-form-field appearance="outline">
           <mat-label>Email:</mat-label>
           <input matInput type="email" name="email" formControlName="email" />
           <div
@@ -39,6 +37,15 @@
             formControlName="password"
             #pass
           />
+          <button
+            mat-icon-button
+            type="button"
+            color="warn"
+            class="open_pass"
+            (click)="openPass(pass)"
+          >
+            <mat-icon>{{!isVisiblePassword ? 'visibility_off' : 'visibility_on'}}</mat-icon>
+          </button>
           <div
             class="error-text red-text"
             *ngIf="
@@ -59,7 +66,6 @@
             </span>
           </div>
         </mat-form-field>
-        <span (click)="openPass(pass)">Open password</span>
         <div>
           {{ accountAccess.accountAction.linkLabel }}
           <button

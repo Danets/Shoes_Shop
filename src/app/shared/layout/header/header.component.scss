@@ -1,3 +1,18 @@
+%link-shared {
+  display: block;
+  color: #fff;
+  text-decoration: none;
+}
+
+a {
+  @extend %link-shared;
+  &:hover,
+  &:focus,
+  &.active {
+    color: #000;
+  }
+}
+
 ul {
   margin: 0;
   padding: 0;
@@ -6,9 +21,7 @@ ul {
     display: inline-block;
     margin-left: 0.5rem;
     a {
-      display: block;
-      color: #fff;
-      text-decoration: none;
+      @extend %link-shared;
       &:hover,
       &:focus,
       &.active {
@@ -32,12 +45,9 @@ ul {
       margin-bottom: 0.5rem;
       margin-left: 0;
       a {
-        display: block;
-        color: #fff;
-        text-decoration: none;
+        @extend %link-shared;
         &:hover,
         &:focus,
-        &:active,
         &.active {
           color: #000;
         }
@@ -52,4 +62,8 @@ ul {
 
 .sidenav-container {
   height: 100vh;
+}
+
+.mat-drawer-content {
+  overflow: initial !important;
 }

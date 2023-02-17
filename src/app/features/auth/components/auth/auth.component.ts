@@ -17,6 +17,8 @@ export class AuthComponent implements OnDestroy {
 
   notifier = new Subject<void>();
 
+  isVisiblePassword = false;
+
   accountAccess$: Observable<{
     form: UntypedFormGroup;
     accountAction: AccountAction;
@@ -64,6 +66,7 @@ export class AuthComponent implements OnDestroy {
   }
 
   openPass(input: any) {
+    this.isVisiblePassword = !this.isVisiblePassword;
     input.type = input.type === 'password' ? 'text' : 'password';
   }
 

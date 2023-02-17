@@ -14,12 +14,12 @@
           <a routerLink="/categories" routerLinkActive="active">Categories</a>
         </li>
         <li *ngIf="!this.authService.isAuthenticated()">
-          <a
-           routerLink="/auth"
-           routerLinkActive="active">Login</a>
+          <a routerLink="/auth" routerLinkActive="active">Login</a>
         </li>
         <li *ngIf="this.authService.isAuthenticated()">
-          <a href="#" routerLinkActive="active" (click)="onLogout($event)">Logout</a>
+          <a href="#" routerLinkActive="active" (click)="onLogout($event)"
+            >Logout</a
+          >
         </li>
       </ul>
     </nav>
@@ -29,7 +29,10 @@
       <button mat-icon-button class="icon" (click)="drawer.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
-      <span>My App</span>
+      <a
+        routerLink="/home"
+        ><span>My App</span></a
+      >
       <span class="white-spacer"></span>
       <nav>
         <ul>
@@ -48,7 +51,9 @@
             <a routerLink="/auth" routerLinkActive="active">Login</a>
           </li>
           <li *ngIf="this.authService.isAuthenticated()">
-            <a href="#" routerLinkActive="active" (click)="onLogout($event)">Logout</a>
+            <a href="#" routerLinkActive="active" (click)="onLogout($event)"
+              >Logout</a
+            >
           </li>
         </ul>
       </nav>
