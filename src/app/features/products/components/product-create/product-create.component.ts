@@ -10,12 +10,14 @@ import { Product } from '../../models/product';
 })
 export class ProductCreateComponent {
   formProduct: FormGroup;
+  productLength: number;
 
   constructor(
     private readonly formBuilder: FormBuilder,
     public readonly dialogRef: MatDialogRef<ProductCreateComponent>,
     @Inject(MAT_DIALOG_DATA) public readonly product: Product
   ) {
+    this.productLength = Object.keys(product).length;
     this.formProduct = formBuilder.group({
       title: [product ? product.title : null, [Validators.required]],
       src: [product ? product.src : null, Validators.required],
