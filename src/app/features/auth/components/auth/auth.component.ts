@@ -1,9 +1,13 @@
-import { Component, ElementRef, OnDestroy, Renderer2 } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, combineLatest, tap, Subject, takeUntil } from 'rxjs';
 import { AccountAction, LoginUser, RegisterUser } from '../../models/auth';
 import { AuthService } from '../../services/auth.service';
+import { AuthState } from '@app/store/auth';
+import { select, Store } from '@ngrx/store';
+import * as AuthActions from '@app/store/auth/actions';
+import { getAuthLoading } from '@app/store/auth/selectors';
 
 @Component({
   selector: 'app-auth',
@@ -12,8 +16,8 @@ import { AuthService } from '../../services/auth.service';
 })
 export class AuthComponent implements OnDestroy {
   form$: Observable<UntypedFormGroup> = this.authService.form$;
-
   accountAction$: Observable<AccountAction> = this.authService.accountAction$;
+  isLoading$: Observable<boolean>;
 
   notifier = new Subject<void>();
 
@@ -35,8 +39,10 @@ export class AuthComponent implements OnDestroy {
   constructor(
     public authService: AuthService,
     private router: Router,
-    private render: Renderer2
-  ) {}
+    private store: Store<AuthState>
+  ) {
+    this.isLoading$ = this.store.pipe(select(getAuthLoading));
+  }
 
   toggleRegisterUser() {
     this.authService.toggleUserIsRegistering();
@@ -49,19 +55,23 @@ export class AuthComponent implements OnDestroy {
     };
     if ('username' in user) {
       delete user.username;
-      this.authService
-        .register(user)
-        .pipe(takeUntil(this.notifier))
-        .subscribe(() => {
-          this.router.navigate(['/home']);
-        });
+      this.store.dispatch(AuthActions.REGISTER({user}))
+      // this.authService
+      //   .register(user)
+      //   .pipe(takeUntil(this.notifier))
+      //   .subscribe(() => {
+      //     this.router.navigate(['/home']);
+      //   });
     } else {
-      this.authService
-        .login(user)
-        .pipe(takeUntil(this.notifier))
-        .subscribe(() => {
-          this.router.navigate(['/home']);
-        });
+      this.store.dispatch(AuthActions.LOGIN({user}))
+      // this.router.navigate(['/home']);
+
+      // this.authService
+      //   .login(user)
+      //   .pipe(takeUntil(this.notifier))
+      //   .subscribe(() => {
+      //     this.router.navigate(['/home']);
+      //   });
     }
   }
 
