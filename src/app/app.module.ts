@@ -30,8 +30,8 @@ import { AuthEffects, authReducer } from './store/auth';
     provideFirestore(() => getFirestore()),
     AppRoutingModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot({auth: authReducer}),
-    EffectsModule.forRoot([AuthEffects]),
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot([]),
     // StoreRouterConnectingModule.forRoot(),
      StoreDevtoolsModule.instrument({
       maxAge: 25,

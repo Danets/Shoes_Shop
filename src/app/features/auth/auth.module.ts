@@ -6,6 +6,9 @@ import { AuthService } from './services/auth.service';
 import { AuthGuard } from './services/auth.guard';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './services/auth.interceptor';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { authReducer, AuthEffects } from '@app/store/auth';
 
 @NgModule({
   declarations: [
@@ -13,7 +16,9 @@ import { AuthInterceptor } from './services/auth.interceptor';
   ],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    StoreModule.forFeature('auth', authReducer),
+    EffectsModule.forFeature([AuthEffects]),
   ],
   providers: [
     AuthService,
