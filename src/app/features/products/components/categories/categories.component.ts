@@ -76,7 +76,7 @@ export class CategoriesComponent implements OnInit, OnDestroy {
   }
 
   onRemove(product: Product) {
-    this.productService.removeProduct(product).then((res) => {
+    this.productService.removeProduct(product.id).then((res) => {
       this.getProducts();
     });
   }

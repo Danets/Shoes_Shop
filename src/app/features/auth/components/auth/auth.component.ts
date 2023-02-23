@@ -4,10 +4,9 @@ import { Router } from '@angular/router';
 import { Observable, combineLatest, tap, Subject, takeUntil } from 'rxjs';
 import { AccountAction, LoginUser, RegisterUser } from '../../models/auth';
 import { AuthService } from '../../services/auth.service';
-import { AuthState } from '@app/store/auth';
 import { select, Store } from '@ngrx/store';
+import { AuthState, getAuthLoading } from '@app/store/auth';
 import * as AuthActions from '@app/store/auth/actions';
-import { getAuthLoading } from '@app/store/auth/selectors';
 
 @Component({
   selector: 'app-auth',
@@ -56,22 +55,8 @@ export class AuthComponent implements OnDestroy {
     if ('username' in user) {
       delete user.username;
       this.store.dispatch(AuthActions.REGISTER({user}))
-      // this.authService
-      //   .register(user)
-      //   .pipe(takeUntil(this.notifier))
-      //   .subscribe(() => {
-      //     this.router.navigate(['/home']);
-      //   });
     } else {
       this.store.dispatch(AuthActions.LOGIN({user}))
-      // this.router.navigate(['/home']);
-
-      // this.authService
-      //   .login(user)
-      //   .pipe(takeUntil(this.notifier))
-      //   .subscribe(() => {
-      //     this.router.navigate(['/home']);
-      //   });
     }
   }
 

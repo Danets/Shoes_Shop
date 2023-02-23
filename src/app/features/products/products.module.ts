@@ -7,7 +7,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { ProductCreateComponent } from './components/product-create/product-create.component';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from '../auth/services/auth.guard';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { ProductEffects, productReducer } from '@app/store/products';
 
 const routes: Routes = [
   { path: '', component: CategoriesComponent, children: [
@@ -29,7 +31,9 @@ const routes: Routes = [
   imports: [
     CommonModule,
     SharedModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    StoreModule.forFeature('product', productReducer),
+    EffectsModule.forFeature([ProductEffects]),
   ],
   exports: [RouterModule],
   providers: [

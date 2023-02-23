@@ -21,19 +21,19 @@ import { Firestore, collectionData, docData } from '@angular/fire/firestore';
 export class ProductService {
   slides: Product[] = [
     {
-      id: 1,
+      id: '1',
       title: 'nike',
       dsc: 'The Shiba Inu is the smallest of the six original and distinct spitz',
       src: 'https://images.prom.ua/3795465719_krossovki-nike-air.jpg',
     },
     {
-      id: 2,
+      id: '2',
       title: 'adidas',
       dsc: 'breeds of dog from Japan. A small, agile dog that copes very well with mountainous',
       src: 'https://images.prom.ua/2756754521_w640_h640_muzhskie-vysokie-krossovki.jpg',
     },
     {
-      id: 3,
+      id: '3',
       title: 'puma',
       dsc: 'the Shiba Inu was originally bred for hunting.',
       src: 'https://content.rozetka.com.ua/goods/images/big/293719923.jpg',
@@ -54,7 +54,7 @@ export class ProductService {
     return of(this.slides);
   }
 
-  getSlide(id: number): Product {
+  getSlide(id: string): Product {
     return this.slides.find((prod) => prod.id === id);
   }
 
@@ -62,7 +62,6 @@ export class ProductService {
     return collectionData(this.productCollection, {
       idField: 'id',
     }) as Observable<Product[]>;
-    // return collectionData(this.productCollection) as Observable<Product[]>;
   }
 
   findProducts(
@@ -99,18 +98,12 @@ export class ProductService {
       );
   }
 
-  getProduct(id: string) {
-    // return this.http.get<Product>(`${environment.urlFB}/${id}/products.json`);
+  getProductById(id: string) {
     const productDocumentReference = doc(this.firestore, `products/${id}`);
     return docData(productDocumentReference, { idField: 'id' });
   }
 
   createProduct(product: Product) {
-    // this.productCreated$.next(product);
-    // return this.http.post<Product>(
-    //   `${environment.urlFB}/products.json`,
-    //   product
-    // );
     return addDoc(this.productCollection, product);
   }
 
@@ -122,10 +115,10 @@ export class ProductService {
     return updateDoc(productDocumentReference, { ...product });
   }
 
-  removeProduct(product: Product) {
+  removeProduct(id: string) {
     const productDocumentReference = doc(
       this.firestore,
-      `products/${product.id}`
+      `products/${id}`
     );
     return deleteDoc(productDocumentReference);
   }
