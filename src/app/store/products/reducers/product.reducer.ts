@@ -74,7 +74,7 @@ export const productReducer = createReducer(
   })),
   on(ProductActions.UPDATE_PRODUCT_SUCCESSFUL, (state, { product }) => ({
     ...state,
-    products: state.products.map(p => p.id === product.id ? product : p),
+    products: state.products.map(p => p.id === product?.id ? product : p),
     product,
     loading: false,
     error: null
@@ -92,7 +92,7 @@ export const productReducer = createReducer(
   })),
   on(ProductActions.DELETE_PRODUCT_SUCCESSFUL, (state, { product }) => ({
     ...state,
-    products: state.products.filter(p => p.id !== product.id),
+    products: state.products.filter(p => p.id !== product?.id),
     product: null,
     loading: false,
     error: null

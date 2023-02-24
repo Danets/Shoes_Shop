@@ -104,7 +104,11 @@ export class ProductService {
   }
 
   createProduct(product: Product) {
-    return addDoc(this.productCollection, product);
+    const doc = addDoc(this.productCollection, product)
+    .then((docRef) => {
+      const newProduct = { id: docRef.id, ...product }
+    });
+    return doc;
   }
 
   updateProduct(product: Product) {
@@ -112,7 +116,7 @@ export class ProductService {
       this.firestore,
       `products/${product.id}`
     );
-    return updateDoc(productDocumentReference, { ...product });
+    return updateDoc(productDocumentReference, { ...product, id: product.id});
   }
 
   removeProduct(id: string) {
