@@ -17,10 +17,10 @@ export class AuthComponent implements OnDestroy {
   form$: Observable<UntypedFormGroup> = this.authService.form$;
   accountAction$: Observable<AccountAction> = this.authService.accountAction$;
   isLoading$: Observable<boolean>;
+  isVisiblePassword = false;
+  isSubmited = false;
 
   notifier = new Subject<void>();
-
-  isVisiblePassword = false;
 
   accountAccess$: Observable<{
     form: UntypedFormGroup;
@@ -54,9 +54,11 @@ export class AuthComponent implements OnDestroy {
     };
     if ('username' in user) {
       delete user.username;
-      this.store.dispatch(AuthActions.REGISTER({user}))
+      this.store.dispatch(AuthActions.REGISTER({user}));
+      this.isSubmited = true;
     } else {
-      this.store.dispatch(AuthActions.LOGIN({user}))
+      this.store.dispatch(AuthActions.LOGIN({user}));
+      this.isSubmited = true;
     }
   }
 

@@ -1,4 +1,4 @@
-<ng-container *ngIf="products.length; else loading">
+<div class="table-container" *ngIf="products.length; else loading">
   <mat-form-field appearance="outline" class="search-input">
     <input matInput placeholder="Search" #input />
   </mat-form-field>
@@ -106,7 +106,7 @@
     [pageSize]="3"
     [pageSizeOptions]="[3, 5, 10]"
   ></mat-paginator> -->
-</ng-container>
+  </div>
 
 <ng-template #loading>
   <mat-spinner></mat-spinner>
