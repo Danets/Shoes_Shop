@@ -2,7 +2,7 @@
   <mat-spinner></mat-spinner>
 </ng-container> 
 
-<div class="container" *ngIf="!isSubmited">
+<div class="container">
   <div *ngIf="authService.errorSubject$ | async as error">
     <h2 class="error-text">{{ error }}</h2>
   </div>

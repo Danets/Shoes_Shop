@@ -18,7 +18,6 @@ export class AuthComponent implements OnDestroy {
   accountAction$: Observable<AccountAction> = this.authService.accountAction$;
   isLoading$: Observable<boolean>;
   isVisiblePassword = false;
-  isSubmited = false;
 
   notifier = new Subject<void>();
 
@@ -55,10 +54,8 @@ export class AuthComponent implements OnDestroy {
     if ('username' in user) {
       delete user.username;
       this.store.dispatch(AuthActions.REGISTER({user}));
-      this.isSubmited = true;
     } else {
       this.store.dispatch(AuthActions.LOGIN({user}));
-      this.isSubmited = true;
     }
   }
 
