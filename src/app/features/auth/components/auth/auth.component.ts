@@ -7,6 +7,7 @@ import { AuthService } from '../../services/auth.service';
 import { select, Store } from '@ngrx/store';
 import { AuthState, getAuthLoading } from '@app/store/auth';
 import * as AuthActions from '@app/store/auth/actions';
+import { AuthFacadeService } from '../../services/auth-facade.service';
 
 @Component({
   selector: 'app-auth',
@@ -37,9 +38,9 @@ export class AuthComponent implements OnDestroy {
   constructor(
     public authService: AuthService,
     private router: Router,
-    private store: Store<AuthState>
+    private authFacade: AuthFacadeService
   ) {
-    this.isLoading$ = this.store.pipe(select(getAuthLoading));
+    this.isLoading$ = this.authFacade.isLoading$;
   }
 
   toggleRegisterUser() {
@@ -53,9 +54,9 @@ export class AuthComponent implements OnDestroy {
     };
     if ('username' in user) {
       delete user.username;
-      this.store.dispatch(AuthActions.REGISTER({user}));
+      this.authFacade.register(user);
     } else {
-      this.store.dispatch(AuthActions.LOGIN({user}));
+      this.authFacade.login(user);
     }
   }
 
