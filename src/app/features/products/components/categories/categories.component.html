@@ -10,7 +10,7 @@
   </button>
 
   <app-product-list
-    [products]="products"
+    [products]="products$ | async"
     (productRemoved)="onRemove($event)"
     (productUpdated)="onUpdate($event)"
   ></app-product-list>
