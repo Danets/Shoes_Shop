@@ -18,9 +18,11 @@ export class ProductCreateComponent {
     @Inject(MAT_DIALOG_DATA) public readonly product: Product
   ) {
     this.productLength = Object.keys(product).length;
+    
     this.formProduct = formBuilder.group({
       title: [product ? product.title : null, [Validators.required]],
       src: [product ? product.src : null, Validators.required],
+      isChecked: false,
       dsc: [product ? product.dsc : null, Validators.required],
       date: [new Date()],
     });

@@ -25,11 +25,13 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 
 import { PageComponent } from './components/page/page.component';
 import { HeaderComponent } from './layout/header/header.component';
+import { CustomCheckboxComponent } from './components/custom-checkbox/custom-checkbox.component';
 
 @NgModule({
   declarations: [
     PageComponent,
-    HeaderComponent
+    HeaderComponent,
+    CustomCheckboxComponent
   ],
   imports: [
     CommonModule,
@@ -72,7 +74,8 @@ import { HeaderComponent } from './layout/header/header.component';
     MatPaginatorModule,
     MatSortModule,
     MatDialogModule,
-    CarouselModule
+    CarouselModule,
+    CustomCheckboxComponent
   ]
 })
 export class SharedModule { }
