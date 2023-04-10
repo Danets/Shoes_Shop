@@ -20,18 +20,26 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {
   MatProgressSpinnerModule,
 } from '@angular/material/progress-spinner';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatDividerModule} from '@angular/material/divider';
 
 import { CarouselModule } from 'ngx-owl-carousel-o';
 
 import { PageComponent } from './components/page/page.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { CustomCheckboxComponent } from './components/custom-checkbox/custom-checkbox.component';
+import { WidgetContainerComponent } from './components/widget-container/widget-container.component';
+import { WidgetWeatherComponent } from './components/widget-container/widget-weather/widget-weather.component';
+import { WidgetVelocityComponent } from './components/widget-container/widget-velocity/widget-velocity.component';
 
 @NgModule({
   declarations: [
     PageComponent,
     HeaderComponent,
-    CustomCheckboxComponent
+    CustomCheckboxComponent,
+    WidgetContainerComponent,
+    WidgetWeatherComponent,
+    WidgetVelocityComponent
   ],
   imports: [
     CommonModule,
@@ -49,6 +57,8 @@ import { CustomCheckboxComponent } from './components/custom-checkbox/custom-che
     MatTableModule,
     MatCheckboxModule,
     MatProgressSpinnerModule,
+    MatProgressBarModule,
+    MatDividerModule,
     MatPaginatorModule,
     MatSortModule,
     MatDialogModule,
@@ -71,11 +81,16 @@ import { CustomCheckboxComponent } from './components/custom-checkbox/custom-che
     MatTableModule,
     MatCheckboxModule,
     MatProgressSpinnerModule,
+    MatProgressBarModule,
+    MatDividerModule,
     MatPaginatorModule,
     MatSortModule,
     MatDialogModule,
     CarouselModule,
-    CustomCheckboxComponent
+    CustomCheckboxComponent,
+    WidgetContainerComponent,
+    WidgetWeatherComponent,
+    WidgetVelocityComponent
   ]
 })
 export class SharedModule { }

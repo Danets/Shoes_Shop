@@ -1,0 +1,14 @@
+.widget-container {
+  display: block;
+  width: 200px;
+  margin: 20px;
+  padding: 30px;
+  border: #f0ebeb solid 1px;
+  border-radius: 5px;
+  background-color: #fafafa;
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}

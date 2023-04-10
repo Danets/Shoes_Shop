@@ -1,0 +1,25 @@
+<!-- <mat-card class="example-card">
+  <mat-card-header>
+    <h1>Widget</h1>
+    <button mat-stroked-button (click)="onRefresh()">Refresh</button>
+    <ng-content select="[header]"></ng-content>
+  </mat-card-header>
+  <ng-content select=".image"></ng-content>
+  <mat-card-content>
+    <ng-content></ng-content>
+  </mat-card-content>
+  <mat-card-actions>
+    <ng-content select="div"></ng-content>
+  </mat-card-actions>
+</mat-card> -->
+
+<div class="widget-container">
+  <div class="header">
+    <h1>Widget</h1>
+    <button mat-stroked-button (click)="onRefresh()">Refresh</button>
+  </div>
+  <mat-divider></mat-divider>
+  <section>
+    <ng-content></ng-content>
+  </section>
+</div>
