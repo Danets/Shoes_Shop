@@ -61,9 +61,8 @@ ul {
 }
 
 .sidenav-container {
-  height: 100vh;
-}
-
-.mat-drawer-content {
-  overflow: initial !important;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
 }
