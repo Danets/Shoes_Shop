@@ -10,6 +10,7 @@ import { PageComponent } from './shared/components/page/page.component';
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home'},
   { path: 'home', component: PageComponent },
+  { path: 'home/:id', component: ProductComponent },
   { path: 'categories', canActivate: [AuthGuard], loadChildren: () => import('./features/products/products.module').then(m => m.ProductsModule) },
   { path: 'auth', component: AuthComponent  },
   { path: '**', component: PageComponent }

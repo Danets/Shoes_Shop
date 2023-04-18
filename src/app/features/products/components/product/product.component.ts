@@ -8,22 +8,24 @@ import { ProductService } from '../../services/product.service';
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
-  styleUrls: ['./product.component.scss']
+  styleUrls: ['./product.component.scss'],
 })
 export class ProductComponent implements OnInit {
- product?: Product
+  product?: Product;
 
- constructor(private productService: ProductService,
-   private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private productService: ProductService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
- ngOnInit() {
-  //  this.route.params
-  //  .pipe(switchMap( params => this.productService.getProduct(params['productId'])))
-  //  .subscribe(product => this.product = product)
- }
+  ngOnInit() {
+    this.route.params
+      .pipe(switchMap((params) => this.productService.getSlide(params['id'])))
+      .subscribe((product) => (this.product = product));
+  }
 
- onGetBack() {
-  this.router.navigateByUrl('home');
- }
-
+  onGetBack() {
+    this.router.navigateByUrl('home');
+  }
 }

@@ -54,8 +54,8 @@ export class ProductService {
     return of(this.slides);
   }
 
-  getSlide(id: string): Product {
-    return this.slides.find((prod) => prod.id === id);
+  getSlide(id: string): Observable<Product> {
+    return of(this.slides.find((prod) => prod.id === id));
   }
 
   getProducts(): Observable<Product[]> {
