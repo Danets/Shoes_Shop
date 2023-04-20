@@ -25,39 +25,41 @@
     </nav>
   </mat-sidenav>
   <mat-sidenav-content class="sidenav-content">
-    <mat-toolbar color="primary">
-      <button mat-icon-button class="icon" (click)="drawer.toggle()">
-        <mat-icon>menu</mat-icon>
-      </button>
-      <a
-        routerLink="/home"
-        ><span>My App</span></a
-      >
-      <span class="white-spacer"></span>
-      <nav>
-        <ul>
-          <li>
-            <a
-              routerLink="/home"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-              >Home</a
-            >
-          </li>
-          <li>
-            <a routerLink="/categories" routerLinkActive="active">Categories</a>
-          </li>
-          <li *ngIf="!this.authService.isAuthenticated()">
-            <a routerLink="/auth" routerLinkActive="active">Login</a>
-          </li>
-          <li *ngIf="this.authService.isAuthenticated()">
-            <a href="#" routerLinkActive="active" (click)="onLogout($event)"
-              >Logout</a
-            >
-          </li>
-        </ul>
-      </nav>
-    </mat-toolbar>
+    <div #header>
+      <mat-toolbar color="primary" [ngClass]="{'sticky-header': isSticky}">
+        <button mat-icon-button class="icon" (click)="drawer.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <a
+          routerLink="/home"
+          ><span>My App</span></a
+        >
+        <span class="white-spacer"></span>
+        <nav>
+          <ul>
+            <li>
+              <a
+                routerLink="/home"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                >Home</a
+              >
+            </li>
+            <li>
+              <a routerLink="/categories" routerLinkActive="active">Categories</a>
+            </li>
+            <li *ngIf="!this.authService.isAuthenticated()">
+              <a routerLink="/auth" routerLinkActive="active">Login</a>
+            </li>
+            <li *ngIf="this.authService.isAuthenticated()">
+              <a href="#" routerLinkActive="active" (click)="onLogout($event)"
+                >Logout</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </mat-toolbar>
+    </div>
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
