@@ -13,6 +13,7 @@ import {
 import { catchError, filter, map, switchMap, tap } from 'rxjs/operators';
 import { AccountAction, LoginUser, RegisterUser, AuthResponse } from '../models/auth';
 import { environment } from 'src/environments/environment.development';
+import { matchPasswordValidator } from '@app/shared/directives/match-password.directive';
 
 @Injectable()
 export class AuthService {
@@ -58,10 +59,14 @@ export class AuthService {
           Validators.required,
           Validators.minLength(6),
         ]),
-      });
+      }, { validators: matchPasswordValidator });
       if (userIsRegistering) {
         this.form.addControl(
           'username',
+          new FormControl('', [Validators.required])
+        );
+        this.form.addControl(
+          'confirmPassword',
           new FormControl('', [Validators.required])
         );
       }

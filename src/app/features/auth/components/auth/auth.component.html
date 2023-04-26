@@ -1,6 +1,6 @@
 <ng-container *ngIf="isLoading$ | async">
   <mat-spinner></mat-spinner>
-</ng-container> 
+</ng-container>
 
 <div class="container">
   <div *ngIf="authService.errorSubject$ | async as error">
@@ -48,7 +48,9 @@
             class="open_pass"
             (click)="openPass(pass)"
           >
-            <mat-icon>{{!isVisiblePassword ? 'visibility_off' : 'visibility_on'}}</mat-icon>
+            <mat-icon>{{
+              !isVisiblePassword ? "visibility_off" : "visibility_on"
+            }}</mat-icon>
           </button>
           <div
             class="error-text red-text"
@@ -68,6 +70,36 @@
               characters. Now puted
               {{ form.get("password").errors["minlength"]["actualLength"] }}
             </span>
+          </div>
+        </mat-form-field>
+        <mat-form-field appearance="outline" *ngIf="accountAccess.form.contains('confirmPassword')">
+          <mat-label>Confirm Password:</mat-label>
+          <input
+            matInput
+            type="password"
+            name="confirm-password"
+            formControlName="confirmPassword"
+            #confirmPassword
+          />
+          <button
+            mat-icon-button
+            type="button"
+            color="warn"
+            class="open_pass"
+            (click)="openConfirmPass(confirmPassword)"
+          >
+            <mat-icon>{{
+              !isVisibleconfirmPassword ? "visibility_off" : "visibility_on"
+            }}</mat-icon>
+          </button>
+          <div
+            class="error-text red-text"
+            *ngIf="
+              form.get('confirmPassword').dirty &&
+              form.hasError('matchPassword')
+            "
+          >
+            Confirm password does not match to password
           </div>
         </mat-form-field>
         <div>

@@ -19,6 +19,7 @@ export class AuthComponent implements OnDestroy {
   accountAction$: Observable<AccountAction> = this.authService.accountAction$;
   isLoading$: Observable<boolean>;
   isVisiblePassword = false;
+  isVisibleconfirmPassword = false;
 
   notifier = new Subject<void>();
 
@@ -62,6 +63,11 @@ export class AuthComponent implements OnDestroy {
 
   openPass(input: any) {
     this.isVisiblePassword = !this.isVisiblePassword;
+    input.type = input.type === 'password' ? 'text' : 'password';
+  }
+
+  openConfirmPass(input: any) {
+    this.isVisibleconfirmPassword = !this.isVisibleconfirmPassword;
     input.type = input.type === 'password' ? 'text' : 'password';
   }
 
