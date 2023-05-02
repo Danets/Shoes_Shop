@@ -16,6 +16,9 @@
         >
           <mat-label>Username</mat-label>
           <input matInput type="text" formControlName="username" />
+          <div class="red-text" *ngIf="form.controls.username.dirty && form.controls.username.hasError('uniqueNameValidator')">
+            Word {{form.controls.username.getError('uniqueNameValidator').isBanned}} is banned
+          </div> 
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Email:</mat-label>

@@ -14,6 +14,7 @@ import { catchError, filter, map, switchMap, tap } from 'rxjs/operators';
 import { AccountAction, LoginUser, RegisterUser, AuthResponse } from '../models/auth';
 import { environment } from 'src/environments/environment.development';
 import { matchPasswordValidator } from '@app/shared/directives/match-password.directive';
+import { uniqueNameValidator } from '@app/shared/directives/unique-name-validator.directive';
 
 @Injectable()
 export class AuthService {
@@ -63,7 +64,7 @@ export class AuthService {
       if (userIsRegistering) {
         this.form.addControl(
           'username',
-          new FormControl('', [Validators.required])
+          new FormControl('', [Validators.required, uniqueNameValidator(['test', 'dummy'])])
         );
         this.form.addControl(
           'confirmPassword',
